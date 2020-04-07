@@ -16,13 +16,17 @@ app.get('/',function (req,res) {
     let today = new Date() ;
     let currentDay = today.getDay();
     let day ="";
+
+    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    //let d = new Date(dateString);
+    let dayName = days[currentDay];
     if (currentDay= 6 || currentDay== 0) {
         day = "Weekend";
     }else {
         day = "Weekday";
     }
     //view to render
-    res.render('list', {kindOfDay: day});
+    res.render('list', {kindOfDay: dayName});
 
     
 });
