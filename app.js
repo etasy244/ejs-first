@@ -8,6 +8,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/',function (req,res) {
     res.sendFile(__dirname+"/index.html");
+    let date = new Date() ;
+    // if (date.getDay()== 6 || date.getDay()== 0) {
+    //   res.send("weekend");
+    // }else {
+    //     res.send("work day");
+    // }
+    
+    
 });
 
 app.listen(3000,function(){
