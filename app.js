@@ -2,13 +2,17 @@
 
 const express = require("express");
 const https = require("https");
+const request = require("request");
 const bodyParser = require("body-parser");
 //const ejs = require("ejs");
 const app = express();
-app.use(bodyParser.urlencoded({extended: true}));
+
 
 //using ejs
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
+
+let nextItems = [];
 
 //home route
 app.get('/',function (req,res) {
@@ -25,10 +29,24 @@ app.get('/',function (req,res) {
     }else {
         day = "Weekday";
     }
-    //view to render
-    res.render('list', {kindOfDay: dayName});
+    //locale date
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+   // let today  = new Date();
 
-    
+    console.log(today.toLocaleDateString("en-US")); // 9/17/2016
+    console.log(today.toLocaleDateString("en-US", options)); // Saturday, September 17, 2016
+    dayName=today.toLocaleDateString("hi-IN", options);
+
+    //view to render
+    res.render('list', {kindOfDay: dayName,newItem: nextItems});
+});
+
+app.post("/",function (req,res){
+   let nextItem = req.body.newitem;
+    console.log(nextItem);
+    nextItems.push(nextItem);
+    res.redirect("/");
+
 });
 
 //listen to this port
